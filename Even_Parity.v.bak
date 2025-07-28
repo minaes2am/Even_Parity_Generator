@@ -1,0 +1,13 @@
+module circuit(
+   A,B,AInvert,BInvert,CarryIn,Operation,CarryOut,Result
+);
+input A,B,AInvert,BInvert,CarryIn;
+input [1:0] Operation;
+reg A_input;
+reg B_input;
+output CarryOut,Result;
+assign A_input = (AInvert)? (~A):A;
+assign B_input = (BInvert)? (~B):B;
+assign CarryOut = CarryIn+A_input+B_input;
+assign Result = (Operation==2'b00)? (A_input & B_input):(Operation==2'b01)? (A_input | B_input):(Operation==2'b10)? CarryOut: Result ;
+endmodule 
